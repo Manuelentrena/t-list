@@ -1,0 +1,8 @@
+.userItem {
+  display: flex;
+  margin: 0rem 0.2rem;
+}
+.userItem__field {
+  margin: 0.3rem;
+  border-right: 1px solid grey;
+}

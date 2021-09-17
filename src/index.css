@@ -1,13 +1,160 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* STYLES FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  max-width: 600px;
+}
+
+.form__input {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+}
+
+.form__button {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  background-color: black;
+  color: white;
+  max-height: 35px;
+  cursor: pointer;
+}
+
+.form__error {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: tomato;
+}
+
+.form__success {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: springgreen;
+}
+
+.form__reg {
+  margin: 0.5rem;
+  text-align: center;
+}
+
+.form__doble {
+  display: flex;
+  flex-direction: row;
+}
+
+.form__doble input {
+  width: 100%;
+}
+
+/* List */
+.list {
+  width: 90%;
+  margin: 1rem 0rem;
+  overflow-x: scroll;
+}
+
+.list__head {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.list__column {
+  padding: 0rem 0.2rem;
+  border: 1px solid white;
+  background-color: grey;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.List__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+}
+
+/* Campos concretos de las tablas */
+:root {
+  --nombre: 80px;
+  --apellido: 85px;
+  --email: 220px;
+  --direccion: 250px;
+  --permiso: 70px;
+}
+.nombre {
+  min-width: var(--nombre);
+  max-width: var(--nombre);
+}
+.apellido {
+  min-width: var(--apellido);
+  max-width: var(--apellido);
+}
+.email {
+  min-width: var(--email);
+  max-width: var(--email);
+}
+.direccion {
+  min-width: var(--direccion);
+  max-width: var(--direccion);
+}
+.permiso {
+  min-width: var(--permiso);
+  max-width: var(--permiso);
+}
+
+/* Botones */
+.button__secun {
+  cursor: pointer;
+  width: 35px;
+}
+
+.button__search {
+  padding: 0.5rem 0.5rem;
+  margin: 0.5rem;
+  background-color: black;
+  max-height: 35px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+/* filtros */
+
+.filter {
+  margin-top: 1rem;
 }

@@ -1,0 +1,21 @@
+.filter {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  width: 90%;
+  overflow: hidden;
+}
+
+.filter__form {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.filter__select {
+  height: 35px;
+}
+
+.filter__input {
+  max-width: 100px;
+}

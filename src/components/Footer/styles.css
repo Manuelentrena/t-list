@@ -1,0 +1,18 @@
+.footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: black;
+  width: 100%;
+  color: white;
+  padding-bottom: 1rem;
+}
+
+.footer__text {
+  margin: 1rem;
+  color: white;
+}
+
+.footer__link {
+  color: white;
+}

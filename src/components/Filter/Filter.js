@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router";
-import { Spinner } from "components";
 import "./styles.css";
 
 var valuesFilter = {
@@ -26,7 +25,6 @@ export default function Filter({ listUserBy }) {
 
   const handleChange = ({ target: { name, value } }) => {
     setValues({ ...values, [name]: value });
-    console.log({ ...values });
   };
 
   const handleSubmit = (e) => {

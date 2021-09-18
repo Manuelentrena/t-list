@@ -31,6 +31,7 @@ export default function FormRegister() {
           placeholder="Email..."
           value={values.email}
           onChange={handleChange}
+          autoComplete="on"
           required
         />
         <input
@@ -40,6 +41,7 @@ export default function FormRegister() {
           placeholder="Password..."
           value={values.password}
           onChange={handleChange}
+          autoComplete="on"
           required
         />
         <div className="form__doble">
@@ -50,6 +52,7 @@ export default function FormRegister() {
             placeholder="Nombre..."
             value={values.nombre}
             onChange={handleChange}
+            autoComplete="on"
             required
           />
           <input
@@ -59,6 +62,7 @@ export default function FormRegister() {
             placeholder="Apellido..."
             value={values.apellido}
             onChange={handleChange}
+            autoComplete="on"
           />
         </div>
         {errorLogin && <p className="form__error">{msg}</p>}

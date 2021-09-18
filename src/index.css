@@ -50,6 +50,11 @@ code {
   cursor: pointer;
 }
 
+.form__button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
 .form__error {
   margin: 0.5rem;
   padding: 0.5rem;
@@ -76,6 +81,10 @@ code {
 
 .form__doble input {
   width: 100%;
+}
+
+.form__checkbox {
+  padding: 0.5rem;
 }
 
 /* List */
@@ -113,8 +122,8 @@ code {
 :root {
   --nombre: 80px;
   --apellido: 85px;
-  --email: 220px;
-  --direccion: 250px;
+  --email: 250px;
+  --direccion: 350px;
   --permiso: 70px;
 }
 .nombre {

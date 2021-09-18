@@ -37,6 +37,7 @@ export default function FormLogin() {
           placeholder="Email..."
           value={values.email}
           onChange={handleChange}
+          autoComplete="on"
           required
         />
         <input
@@ -46,6 +47,7 @@ export default function FormLogin() {
           placeholder="Password..."
           value={values.password}
           onChange={handleChange}
+          autoComplete="on"
           required
         />
         {errorLogin && <p className="form__error">{msg}</p>}

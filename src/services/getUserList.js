@@ -1,5 +1,4 @@
 export default function getUserList({ token }) {
-  console.log("Dentro de getUserList");
   return fetch(`https://api-rest-php-sql.herokuapp.com/users`, {
     method: "GET",
     headers: {

@@ -1,23 +1,23 @@
-export default function registerService({
-  nombre,
-  apellido,
-  email,
-  password = "",
-  direccion = "",
-  permiso = 1,
+export default function putUser({
+  id,
+  name,
+  lastname,
+  direction = "",
+  available = 1,
+  token,
 }) {
   return fetch("https://api-rest-php-sql.herokuapp.com/users", {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Token: token,
     },
     body: JSON.stringify({
-      email,
-      password,
-      name: nombre,
-      lastname: apellido,
-      direction: direccion,
-      available: permiso,
+      id,
+      name,
+      lastname,
+      direction,
+      available,
     }),
   })
     .then((res) => res.json())

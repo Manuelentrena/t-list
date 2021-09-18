@@ -1,30 +1,74 @@
-import React, { useState } from "react";
-import useSecurity from "hooks/useSecurity";
+import React, { useState, useEffect } from "react";
 import { Spinner } from "components";
+import "./styles.css";
 
-export default function FormUser() {
-  const { isLoading, register, errorLogin, msg, isRegister } = useSecurity();
+export default function FormUser({
+  userChange,
+  error,
+  success,
+  msg,
+  loading,
+  editedUser,
+  setUserChange,
+}) {
+  /* Estado habilitado/deshabilitado del form, tanto en new como en edit */
+  const [disabled, setDisabled] = useState({
+    edit: true,
+    new: true,
+  });
+  /* Valores del formulario por defecto */
   const [values, setValues] = useState({
     id: "",
     name: "",
     lastname: "",
     email: "",
+    password: "",
     direction: "",
-    available: "",
+    available: 1,
   });
-
-  const handleChange = ({ target: { name, value } }) => {
+  /* Cargamos datos a editar */
+  useEffect(() => {
+    if (Object.entries(userChange).length !== 0) {
+      setValues({
+        id: userChange.id,
+        name: userChange.name,
+        lastname: userChange.lastname,
+        email: userChange.email,
+        password: "*********",
+        direction: userChange.direction,
+        available: parseInt(userChange.available, 10),
+      });
+      setDisabled({ edit: false, new: true });
+    } else {
+      setValues({
+        id: "",
+        name: "",
+        lastname: "",
+        email: "",
+        password: "",
+        direction: "",
+        available: 1,
+      });
+      setDisabled({ edit: true, new: true });
+    }
+  }, [userChange]);
+  /* Almacenamos datos al pulsar una tecla de cualquier input */
+  const handleChange = ({ target: { name, value, checked } }) => {
+    if (name === "available") {
+      value = checked;
+    }
     setValues({ ...values, [name]: value });
-    console.log({ ...values });
   };
-
+  /* Enviadmos datos a la BD */
   const handleSubmit = (e) => {
     e.preventDefault();
-    register({ ...values });
+    editedUser({ ...values });
+    setUserChange({}); // Reset form
   };
 
   return (
-    <>
+    <div className="formUser">
+      <p>FORMULARIO DE RELLENO:</p>
       <form className="form" onSubmit={handleSubmit}>
         {/* NAME */}
         <input
@@ -35,6 +79,8 @@ export default function FormUser() {
           value={values.name}
           onChange={handleChange}
           required
+          autoComplete="on"
+          disabled={disabled.edit}
         />
         {/* LASTNAME */}
         <input
@@ -45,6 +91,8 @@ export default function FormUser() {
           value={values.lastname}
           onChange={handleChange}
           required
+          autoComplete="on"
+          disabled={disabled.edit}
         />
         {/* EMAIL */}
         <input
@@ -55,34 +103,55 @@ export default function FormUser() {
           value={values.email}
           onChange={handleChange}
           required
+          autoComplete="on"
+          disabled={disabled.new}
+        />
+        {/* PASSWORD */}
+        <input
+          className="form__input"
+          type="password"
+          name="password"
+          placeholder="Password..."
+          value={values.password}
+          onChange={handleChange}
+          required
+          autoComplete="on"
+          disabled={disabled.new}
         />
         {/* DIRECTION */}
         <input
           className="form__input"
           type="text"
           name="direction"
-          placeholder="Email..."
+          placeholder="Dirección..."
           value={values.direction}
           onChange={handleChange}
-          required
+          autoComplete="on"
+          disabled={disabled.edit}
         />
         {/* AVAILABLE */}
-        <input
-          type="checkbox"
-          defaultChecked={values.direction}
-          onChange={handleChange}
-          required
-        />
+        <div className="form__checkbox">
+          <label htmlFor="available">Acceso</label>
+          <input
+            type="checkbox"
+            name="available"
+            checked={values.available}
+            onChange={handleChange}
+            disabled={disabled.edit}
+          />
+        </div>
 
         <div className="form__doble"></div>
-        {errorLogin && <p className="form__error">{msg}</p>}
-        {isRegister && <p className="form__success">{msg}</p>}
-        {isLoading ? (
+        {error && <p className="form__error">{msg}</p>}
+        {success && <p className="form__success">{msg}</p>}
+        {loading ? (
           <Spinner />
         ) : (
-          <button className="form__button">GUARDAR</button>
+          <button className="form__button" disabled={disabled.edit}>
+            GUARDAR
+          </button>
         )}
       </form>
-    </>
+    </div>
   );
 }

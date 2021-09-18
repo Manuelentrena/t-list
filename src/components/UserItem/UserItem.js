@@ -1,4 +1,3 @@
-/* import useUsers from "hooks/useUsers"; */
 import React from "react";
 import "./styles.css";
 
@@ -9,11 +8,10 @@ export default function UserItem({
   lastname,
   name,
   id,
+  setUserChange,
 }) {
-  /* const { setUserChange } = useUsers(); */
-
   const handleEdit = () => {
-    /* setUserChange({ available, direction, email, lastname, name, id }); */
+    setUserChange({ available, direction, email, lastname, name, id });
   };
 
   const handleDelete = () => {

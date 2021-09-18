@@ -1,10 +1,10 @@
 export default function registerService({
-  nombre,
-  apellido,
+  name,
+  lastname,
   email,
   password = "",
-  direccion = "",
-  permiso = 1,
+  direction = "",
+  available = 1,
 }) {
   return fetch("https://api-rest-php-sql.herokuapp.com/users", {
     method: "POST",
@@ -14,10 +14,10 @@ export default function registerService({
     body: JSON.stringify({
       email,
       password,
-      name: nombre,
-      lastname: apellido,
-      direction: direccion,
-      available: permiso,
+      name,
+      lastname,
+      direction,
+      available,
     }),
   })
     .then((res) => res.json())

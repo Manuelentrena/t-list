@@ -1,16 +1,8 @@
 import React from "react";
 
-export default function UserCreate({ setUserChange }) {
+export default function UserCreate({ setMode }) {
   const handleClick = () => {
-    setUserChange({
-      id: "",
-      name: "",
-      lastname: "",
-      email: "",
-      password: "",
-      direction: "",
-      available: 1,
-    });
+    setMode("NEW");
   };
   return (
     <button className="button__create" onClick={handleClick}>

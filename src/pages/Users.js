@@ -24,6 +24,9 @@ export default function Users() {
     listUser,
     loadingList,
     eliminatedUser,
+    mode,
+    setMode,
+    postUser,
   } = useUsers();
 
   return (
@@ -38,7 +41,7 @@ export default function Users() {
           setUserChange={setUserChange}
           eliminatedUser={eliminatedUser}
         />
-        <UserCreate setUserChange={setUserChange} />
+        <UserCreate setMode={setMode} />
         <FormUser
           userChange={userChange}
           error={error}
@@ -48,6 +51,9 @@ export default function Users() {
           editedUser={editedUser}
           listUser={listUser}
           setUserChange={setUserChange}
+          mode={mode}
+          setMode={setMode}
+          postUser={postUser}
         />
       </div>
       <Footer />

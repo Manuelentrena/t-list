@@ -21,7 +21,6 @@ export function SecurityContextProvider({ children }) {
       });
 
       setUserName(res[0].name);
-      console.log(res);
     }
     idUser && token && nameUser();
   }, [idUser, token]);

@@ -5,11 +5,12 @@ import getUserByParam from "services/getUserByParam";
 import getUserList from "services/getUserList";
 import putUser from "services/putUser";
 import deleteUser from "services/deleteUser";
+import registerService from "services/register";
 
 export default function useUsers() {
   /* Provider User */
   const { token } = useContext(SecurityProvider);
-  const { users, setUsers, userChange, setUserChange } =
+  const { users, setUsers, userChange, setUserChange, mode, setMode } =
     useContext(UserProvider);
   /* Estado del useUser */
   const [state, setState] = useState({
@@ -49,6 +50,49 @@ export default function useUsers() {
       }
     },
     [token, setUsers]
+  );
+
+  /* POST USER */
+  const postUser = useCallback(
+    async ({ name, lastname, email, password, direction, available }) => {
+      console.log({ name, lastname, email, password, direction, available });
+      setState({ loading: true, error: false, msg: "" });
+      const { status, result } = await registerService({
+        name,
+        lastname,
+        email,
+        password,
+        direction,
+        available,
+      });
+      if (status === "error") {
+        setState({
+          loading: false,
+          error: true,
+          msg: result.error_msg,
+          success: false,
+        });
+      } else {
+        setState({
+          loading: false,
+          error: false,
+          msg: "Guardado Correctamente!",
+          success: true,
+        });
+      }
+      /* Actualizamos los datos en la lista */
+      listUser();
+      /* Reseteamos el mensaje */
+      setTimeout(() => {
+        setState({
+          loading: false,
+          error: false,
+          msg: "",
+          success: false,
+        });
+      }, 3000);
+    },
+    [listUser]
   );
 
   /* PUT USER */
@@ -147,7 +191,10 @@ export default function useUsers() {
     users,
     userChange,
     setUserChange,
+    postUser,
     editedUser,
     eliminatedUser,
+    mode,
+    setMode,
   };
 }

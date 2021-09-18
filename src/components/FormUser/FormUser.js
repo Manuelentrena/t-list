@@ -10,12 +10,10 @@ export default function FormUser({
   loading,
   editedUser,
   setUserChange,
+  setMode,
+  mode,
+  postUser,
 }) {
-  /* Estado habilitado/deshabilitado del form, tanto en new como en edit */
-  const [disabled, setDisabled] = useState({
-    edit: true,
-    new: true,
-  });
   /* Valores del formulario por defecto */
   const [values, setValues] = useState({
     id: "",
@@ -38,7 +36,7 @@ export default function FormUser({
         direction: userChange.direction,
         available: parseInt(userChange.available, 10),
       });
-      setDisabled({ edit: false, new: true });
+      setMode("EDIT");
     } else {
       setValues({
         id: "",
@@ -49,9 +47,9 @@ export default function FormUser({
         direction: "",
         available: 1,
       });
-      setDisabled({ edit: true, new: true });
+      setMode("NONE");
     }
-  }, [userChange]);
+  }, [userChange, setMode]);
   /* Almacenamos datos al pulsar una tecla de cualquier input */
   const handleChange = ({ target: { name, value, checked } }) => {
     if (name === "available") {
@@ -62,7 +60,8 @@ export default function FormUser({
   /* Enviadmos datos a la BD */
   const handleSubmit = (e) => {
     e.preventDefault();
-    editedUser({ ...values });
+    mode === "EDIT" && editedUser({ ...values });
+    mode === "NEW" && postUser({ ...values });
     setUserChange({}); // Reset form
   };
 
@@ -80,7 +79,7 @@ export default function FormUser({
           onChange={handleChange}
           required
           autoComplete="on"
-          disabled={disabled.edit}
+          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
         />
         {/* LASTNAME */}
         <input
@@ -92,7 +91,7 @@ export default function FormUser({
           onChange={handleChange}
           required
           autoComplete="on"
-          disabled={disabled.edit}
+          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
         />
         {/* EMAIL */}
         <input
@@ -104,7 +103,7 @@ export default function FormUser({
           onChange={handleChange}
           required
           autoComplete="on"
-          disabled={disabled.new}
+          disabled={mode === "NEW" ? false : true}
         />
         {/* PASSWORD */}
         <input
@@ -116,7 +115,7 @@ export default function FormUser({
           onChange={handleChange}
           required
           autoComplete="on"
-          disabled={disabled.new}
+          disabled={mode === "NEW" ? false : true}
         />
         {/* DIRECTION */}
         <input
@@ -127,7 +126,7 @@ export default function FormUser({
           value={values.direction}
           onChange={handleChange}
           autoComplete="on"
-          disabled={disabled.edit}
+          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
         />
         {/* AVAILABLE */}
         <div className="form__checkbox">
@@ -137,7 +136,7 @@ export default function FormUser({
             name="available"
             checked={values.available}
             onChange={handleChange}
-            disabled={disabled.edit}
+            disabled={mode === "EDIT" || mode === "NEW" ? false : true}
           />
         </div>
 
@@ -147,7 +146,10 @@ export default function FormUser({
         {loading ? (
           <Spinner />
         ) : (
-          <button className="form__button" disabled={disabled.edit}>
+          <button
+            className="form__button"
+            disabled={mode === "EDIT" || mode === "NEW" ? false : true}
+          >
             GUARDAR
           </button>
         )}

@@ -41,8 +41,8 @@ export default function useSecurity() {
     async ({ nombre, apellido, email, password }) => {
       setState({ loading: true, error: false, msg: "" });
       const { status, result } = await registerService({
-        nombre,
-        apellido,
+        name: nombre,
+        lastname: apellido,
         email,
         password,
       });

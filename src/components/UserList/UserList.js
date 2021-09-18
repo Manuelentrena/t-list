@@ -1,7 +1,12 @@
 import React from "react";
 import { Spinner, UserItem } from "components";
 
-export default function UserList({ users, loading, setUserChange }) {
+export default function UserList({
+  users,
+  loading,
+  setUserChange,
+  eliminatedUser,
+}) {
   return (
     <div className="list">
       <div className="list__head">
@@ -17,7 +22,12 @@ export default function UserList({ users, loading, setUserChange }) {
         ) : (
           users &&
           users.map((user) => (
-            <UserItem {...user} key={user.id} setUserChange={setUserChange} />
+            <UserItem
+              {...user}
+              key={user.id}
+              setUserChange={setUserChange}
+              eliminatedUser={eliminatedUser}
+            />
           ))
         )}
       </div>

@@ -9,13 +9,14 @@ export default function UserItem({
   name,
   id,
   setUserChange,
+  eliminatedUser,
 }) {
   const handleEdit = () => {
     setUserChange({ available, direction, email, lastname, name, id });
   };
 
   const handleDelete = () => {
-    console.log(id);
+    eliminatedUser({ id });
   };
 
   return (

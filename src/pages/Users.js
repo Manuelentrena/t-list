@@ -1,6 +1,14 @@
 import React from "react";
 import useUsers from "hooks/useUsers";
-import { Footer, NavBar, Header, UserList, Filter, FormUser } from "components";
+import {
+  Footer,
+  NavBar,
+  Header,
+  UserList,
+  Filter,
+  FormUser,
+  UserCreate,
+} from "components";
 
 export default function Users() {
   const {
@@ -15,6 +23,7 @@ export default function Users() {
     editedUser,
     listUser,
     loadingList,
+    eliminatedUser,
   } = useUsers();
 
   return (
@@ -27,7 +36,9 @@ export default function Users() {
           users={users}
           loading={loadingList}
           setUserChange={setUserChange}
+          eliminatedUser={eliminatedUser}
         />
+        <UserCreate setUserChange={setUserChange} />
         <FormUser
           userChange={userChange}
           error={error}

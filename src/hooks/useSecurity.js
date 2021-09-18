@@ -6,7 +6,8 @@ import registerService from "services/register";
 
 export default function useSecurity() {
   /* Provider User */
-  const { token, setToken, idUser, setIdUser } = useContext(SecurityProvider);
+  const { token, setToken, idUser, setIdUser, userName } =
+    useContext(SecurityProvider);
   /* Estado del useUser */
   const [state, setState] = useState({
     loading: false,
@@ -89,6 +90,7 @@ export default function useSecurity() {
     isRegister: state.success /* Ha sido registrado */,
     msg: state.msg /* El tipo de mensaje */,
     idUser /* Id del usuario registrado */,
+    userName,
     login,
     register,
     logout,

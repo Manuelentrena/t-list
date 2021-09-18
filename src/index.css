@@ -162,8 +162,38 @@ code {
   width: fit-content;
 }
 
+.button__create {
+  padding: 0.5rem 0.5rem;
+  margin-right: auto;
+  margin-left: 5vw;
+  background-color: black;
+  max-height: 35px;
+  cursor: pointer;
+  color: white;
+  width: fit-content;
+}
+
 /* filtros */
 
 .filter {
   margin-top: 1rem;
+}
+
+/* POPUP MENSAJE */
+
+.popup {
+  position: fixed;
+  top: 2%;
+  left: 50%;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  margin: 0 auto;
+}
+.success {
+  background-color: springgreen;
+}
+
+.error {
+  background-color: tomato;
 }

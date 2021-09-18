@@ -4,6 +4,7 @@ import UserProvider from "providers/UserProvider";
 import getUserByParam from "services/getUserByParam";
 import getUserList from "services/getUserList";
 import putUser from "services/putUser";
+import deleteUser from "services/deleteUser";
 
 export default function useUsers() {
   /* Provider User */
@@ -38,12 +39,12 @@ export default function useUsers() {
   /* GetUserBy */
   const listUserBy = useCallback(
     async ({ value, searchBy }) => {
-      setState({ loading: true, error: false });
+      setStateList({ loading: true, error: false });
       const data = await getUserByParam({ token, value, searchBy });
       if (!data) {
-        setState({ loading: false, error: true });
+        setStateList({ loading: false, error: true });
       } else {
-        setState({ loading: false, error: false });
+        setStateList({ loading: false, error: false });
         setUsers(data);
       }
     },
@@ -92,6 +93,41 @@ export default function useUsers() {
     [token, listUser]
   );
 
+  /* DELETE USER */
+  const eliminatedUser = useCallback(
+    async ({ id }) => {
+      setState({ loading: true, error: false, msg: "" });
+      const { status, result } = await deleteUser({ id, token });
+      if (status === "error") {
+        setState({
+          loading: false,
+          error: true,
+          msg: result.error_msg,
+          success: false,
+        });
+      } else {
+        setState({
+          loading: false,
+          error: false,
+          msg: "Borrado Correctamente!",
+          success: true,
+        });
+      }
+      /* Actualizamos los datos en la lista */
+      listUser();
+      /* Reseteamos el mensaje */
+      setTimeout(() => {
+        setState({
+          loading: false,
+          error: false,
+          msg: "",
+          success: false,
+        });
+      }, 3000);
+    },
+    [token, listUser]
+  );
+
   useEffect(() => {
     async function callUserList() {
       listUser();
@@ -112,5 +148,6 @@ export default function useUsers() {
     userChange,
     setUserChange,
     editedUser,
+    eliminatedUser,
   };
 }

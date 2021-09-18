@@ -142,8 +142,8 @@ export default function FormUser({
         </div>
 
         <div className="form__doble"></div>
-        {error && <p className="form__error">{msg}</p>}
-        {success && <p className="form__success">{msg}</p>}
+        {error && <p className="popup error">{msg}</p>}
+        {success && <p className="popup success">{msg}</p>}
         {loading ? (
           <Spinner />
         ) : (

@@ -7,12 +7,14 @@ export default function UserItem({
   date,
   description,
   id,
+  stateid,
+  userid,
   setTaskChange,
   eliminatedTask,
 }) {
   const [msg, setMsg] = useState(null);
   const handleEdit = () => {
-    setTaskChange({ name, user, state, description, id });
+    setTaskChange({ name, user, state, description, id, stateid, userid });
   };
 
   const handleDelete = () => {

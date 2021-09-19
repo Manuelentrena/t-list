@@ -34,8 +34,8 @@ export default function FormTask({
       setValues({
         id: taskChange.id,
         name: taskChange.name,
-        idstate: taskChange.idstate,
-        iduser: taskChange.iduser,
+        idstate: taskChange.stateid,
+        iduser: taskChange.userid,
         description: taskChange.description,
       });
       setMode("EDIT");
@@ -52,7 +52,6 @@ export default function FormTask({
   }, [taskChange, setMode]);
   /* Almacenamos datos al pulsar una tecla de cualquier input */
   const handleChange = ({ target: { name, value } }) => {
-    console.log({ ...values });
     setValues({ ...values, [name]: value });
   };
   /* Enviadmos datos a la BD */
@@ -125,11 +124,11 @@ export default function FormTask({
           type="text"
           name="description"
           placeholder="Descripción..."
-          value={values.password}
+          value={values.description}
           onChange={handleChange}
           required
           autoComplete="on"
-          disabled={mode === "NEW" ? false : true}
+          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
         />
         {error && <p className="popup error">{msg}</p>}
         {success && <p className="popup success">{msg}</p>}

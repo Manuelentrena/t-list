@@ -1,17 +1,15 @@
 import { useState, useCallback, useContext, useEffect } from "react";
 import SecurityProvider from "providers/SecurityProvider";
-/* import UserProvider from "providers/UserProvider"; */
 import TaskProvider from "providers/TaskProvider";
-/* import StateProvider from "providers/StateProvider"; */
 import getTaskList from "services/getTaskList";
 import getTaskByParam from "services/getTaskByParam";
 import postTaskService from "services/postTaskService";
+import putTaskService from "services/putTaskService";
 
 export default function useUsers() {
   /* Provider Security */
   const { token } = useContext(SecurityProvider);
-  /* const { users } = useContext(UserProvider);
-  const { states } = useContext(StateProvider); */
+  /* Task Provider */
   const { tasks, setTasks, taskChange, setTaskChange, mode, setMode } =
     useContext(TaskProvider);
   /* Estado del useTask */
@@ -95,13 +93,47 @@ export default function useUsers() {
     [listTask, token]
   );
 
-  /* PUT USER */
-  /*   const editedUser = useCallback(
-    async ({ id, name, lastname, direction, available }) => {
-
+  /* PUT TASK */
+  const editedTask = useCallback(
+    async ({ id, name, idstate, iduser, description }) => {
+      setState({ loading: true, error: false, msg: "" });
+      const { status, result } = await putTaskService({
+        id,
+        name,
+        idstate,
+        iduser,
+        description,
+        token,
+      });
+      if (status === "error") {
+        setState({
+          loading: false,
+          error: true,
+          msg: result.error_msg,
+          success: false,
+        });
+      } else {
+        setState({
+          loading: false,
+          error: false,
+          msg: "Editado Correctamente!",
+          success: true,
+        });
+      }
+      /* Actualizamos los datos en la lista */
+      listTask();
+      /* Reseteamos el mensaje */
+      setTimeout(() => {
+        setState({
+          loading: false,
+          error: false,
+          msg: "",
+          success: false,
+        });
+      }, 3000);
     },
-    [token, listUser]
-  ); */
+    [token, listTask]
+  );
 
   /* DELETE USER */
   /*   const eliminatedUser = useCallback(
@@ -131,8 +163,8 @@ export default function useUsers() {
     taskChange,
     setTaskChange,
     postTask,
-    /* editedTask,
-    eliminatedTask, */
+    editedTask,
+    /* eliminatedTask, */
     mode,
     setMode,
   };

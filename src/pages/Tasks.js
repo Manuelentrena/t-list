@@ -8,23 +8,24 @@ import {
   Tab,
   CreateNew,
   TaskList,
+  FormTask,
 } from "components";
 export default function Tasks() {
   const {
     listTaskBy,
     setTaskChange,
-    /* taskChange, */
-    /* loading,
-      error,
-      success,
-      msg, */
-    /* editedTask, */
-    /* listTask, */
+    taskChange,
+    loading,
+    error,
+    success,
+    msg,
+    editedTask,
+    listTask,
     loadingList,
     /* eliminatedTask, */
-    /* mode, */
+    mode,
     setMode,
-    /* postTask, */
+    postTask,
     tasks,
   } = useTasks();
   return (
@@ -41,6 +42,19 @@ export default function Tasks() {
           /* eliminatedTask={eliminatedTask} */
         />
         <CreateNew setMode={setMode} />
+        <FormTask
+          taskChange={taskChange}
+          error={error}
+          success={success}
+          msg={msg}
+          loading={loading}
+          editedTask={editedTask}
+          listTask={listTask}
+          setTaskChange={setTaskChange}
+          mode={mode}
+          setMode={setMode}
+          postTask={postTask}
+        />
       </div>
       <Footer />
     </>

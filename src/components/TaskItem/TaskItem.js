@@ -27,9 +27,9 @@ export default function UserItem({
     <div className="Item">
       {msg && <p className="popup error">{msg}</p>}
       <p className="Item__field nombre">{name}</p>
+      <p className="Item__field descripcion">{description}</p>
       <p className="Item__field usuario">{user}</p>
       <p className="Item__field estado">{state}</p>
-      <p className="Item__field descripcion">{description}</p>
       <p className="Item__field fecha">{date}</p>
       <button className="button__secun" onClick={handleEdit}>
         📋

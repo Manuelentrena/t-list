@@ -40,6 +40,10 @@ code {
   padding: 0.5rem 1rem;
   margin: 0.5rem;
 }
+.form__select {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+}
 
 .form__button {
   padding: 0.5rem 1rem;

@@ -5,6 +5,7 @@ import TaskProvider from "providers/TaskProvider";
 /* import StateProvider from "providers/StateProvider"; */
 import getTaskList from "services/getTaskList";
 import getTaskByParam from "services/getTaskByParam";
+import postTaskService from "services/postTaskService";
 
 export default function useUsers() {
   /* Provider Security */
@@ -14,12 +15,12 @@ export default function useUsers() {
   const { tasks, setTasks, taskChange, setTaskChange, mode, setMode } =
     useContext(TaskProvider);
   /* Estado del useTask */
-  /*   const [state, setState] = useState({
+  const [state, setState] = useState({
     loading: false,
     error: false,
     success: false,
     msg: "",
-  }); */
+  });
   /* Estado del useTaskList */
   const [stateList, setStateList] = useState({
     loading: false,
@@ -53,12 +54,46 @@ export default function useUsers() {
     [token, setTasks]
   );
 
-  /* POST USER */
-  /*   const postTask = useCallback(
-    async ({ name, lastname, email, password, direction, available }) => {
-
-    [listTask]
-  ); */
+  /* POST TASK */
+  const postTask = useCallback(
+    async ({ name, idstate, iduser, description }) => {
+      setState({ loading: true, error: false, msg: "" });
+      const { status, result } = await postTaskService({
+        name,
+        idstate,
+        iduser,
+        description,
+        token,
+      });
+      if (status === "error") {
+        setState({
+          loading: false,
+          error: true,
+          msg: result.error_msg,
+          success: false,
+        });
+      } else {
+        setState({
+          loading: false,
+          error: false,
+          msg: "Guardado Correctamente!",
+          success: true,
+        });
+      }
+      /* Actualizamos los datos en la lista */
+      listTask();
+      /* Reseteamos el mensaje */
+      setTimeout(() => {
+        setState({
+          loading: false,
+          error: false,
+          msg: "",
+          success: false,
+        });
+      }, 3000);
+    },
+    [listTask, token]
+  );
 
   /* PUT USER */
   /*   const editedUser = useCallback(
@@ -84,10 +119,10 @@ export default function useUsers() {
   }, [token, listTask]);
 
   return {
-    /*     loading: state.loading ,
-    error: state.error ,
+    loading: state.loading,
+    error: state.error,
     msg: state.msg,
-    success: state.success, */
+    success: state.success,
     loadingList: stateList.loading,
     errorList: stateList.error,
     listTask,
@@ -95,8 +130,8 @@ export default function useUsers() {
     tasks,
     taskChange,
     setTaskChange,
-    /* postTask,
-    editedTask,
+    postTask,
+    /* editedTask,
     eliminatedTask, */
     mode,
     setMode,

@@ -10,10 +10,10 @@ export default function UserList({
   return (
     <div className="list">
       <div className="list__head">
-        <div className="list__column nombre">Nombre</div>
+        <div className="list__column nombre">Tarea</div>
+        <div className="list__column descripcion">Descripcion</div>
         <div className="list__column usuario">Usuario</div>
         <div className="list__column estado">Estado</div>
-        <div className="list__column descripcion">Descripcion</div>
         <div className="list__column fecha">Fecha</div>
       </div>
       <div className="List__body">

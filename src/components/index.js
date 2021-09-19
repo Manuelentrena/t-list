@@ -16,3 +16,4 @@ export { default as StateItem } from "components/StateItem/StateItem";
 export { default as FormState } from "components/FormState/FormState";
 export { default as TaskList } from "components/TaskList/TaskList";
 export { default as TaskItem } from "components/TaskItem/TaskItem";
+export { default as FormTask } from "components/FormTask/FormTask";

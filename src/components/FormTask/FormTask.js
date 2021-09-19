@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "components";
+import useUsers from "hooks/useUsers";
+import useStates from "hooks/useStates";
 import "./styles.css";
 
-export default function FormUser({
-  /* userChange,
+export default function FormTask({
+  taskChange,
   error,
   success,
   msg,
   loading,
-  editedUser,
-  setUserChange,
-  setMode, */
+  editedTask,
+  setTaskChange,
+  setMode,
   mode,
-  /* postUser, */
+  postTask,
 }) {
+  /* Traemos los usuarios */
+  const { users } = useUsers();
+  /* Traemos los estados */
+  const { states } = useStates();
   /* Valores del formulario por defecto */
   const [values, setValues] = useState({
     id: "",
@@ -23,46 +29,38 @@ export default function FormUser({
     description: "",
   });
   /* Cargamos datos a editar */
-  useEffect(
-    () => {
-      /* if (Object.entries(userChange).length !== 0) {
+  useEffect(() => {
+    if (Object.entries(taskChange).length !== 0) {
       setValues({
-        id: userChange.id,
-        name: userChange.name,
-        lastname: userChange.lastname,
-        email: userChange.email,
-        password: "*********",
-        direction: userChange.direction,
-        available: parseInt(userChange.available, 10),
+        id: taskChange.id,
+        name: taskChange.name,
+        idstate: taskChange.idstate,
+        iduser: taskChange.iduser,
+        description: taskChange.description,
       });
       setMode("EDIT");
     } else {
       setValues({
         id: "",
         name: "",
-        lastname: "",
-        email: "",
-        password: "",
-        direction: "",
-        available: 1,
+        idstate: "",
+        iduser: "",
+        description: "",
       });
       setMode("NONE");
-    } */
-    },
-    [
-      /* userChange, setMode */
-    ]
-  );
+    }
+  }, [taskChange, setMode]);
   /* Almacenamos datos al pulsar una tecla de cualquier input */
   const handleChange = ({ target: { name, value } }) => {
+    console.log({ ...values });
     setValues({ ...values, [name]: value });
   };
   /* Enviadmos datos a la BD */
   const handleSubmit = (e) => {
-    /* e.preventDefault();
-    mode === "EDIT" && editedUser({ ...values });
-    mode === "NEW" && postUser({ ...values });
-    setTaskChange({}); */
+    e.preventDefault();
+    mode === "EDIT" && editedTask({ ...values });
+    mode === "NEW" && postTask({ ...values });
+    setTaskChange({});
   };
 
   return (
@@ -74,73 +72,65 @@ export default function FormUser({
           className="form__input"
           type="text"
           name="name"
-          placeholder="Nombre..."
+          placeholder="Tarea..."
           value={values.name}
           onChange={handleChange}
           required
           autoComplete="on"
           disabled={mode === "EDIT" || mode === "NEW" ? false : true}
         />
-        {/* LASTNAME */}
+        {/* USER */}
+        <select
+          className="form__select"
+          name="iduser"
+          value={values.iduser}
+          onChange={handleChange}
+          required
+          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
+        >
+          <option disabled value="">
+            {" "}
+            -- Selecciona un usuario --{" "}
+          </option>
+          {users &&
+            users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {`${user.name} ${user.lastname}`}
+              </option>
+            ))}
+        </select>
+        {/* STATE */}
+        <select
+          className="form__select"
+          name="idstate"
+          value={values.idstate}
+          onChange={handleChange}
+          required
+          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
+        >
+          <option disabled value="">
+            {" "}
+            -- Selecciona un estado --{" "}
+          </option>
+          {states &&
+            states.map((state) => (
+              <option key={state.id} value={state.id}>
+                {state.name}
+              </option>
+            ))}
+        </select>
+        {/* DESCRIPTION */}
         <input
           className="form__input"
           type="text"
-          name="lastname"
-          placeholder="Apellido..."
-          value={values.lastname}
-          onChange={handleChange}
-          required
-          autoComplete="on"
-          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
-        />
-        {/* EMAIL */}
-        <input
-          className="form__input"
-          type="email"
-          name="email"
-          placeholder="Email..."
-          value={values.email}
-          onChange={handleChange}
-          required
-          autoComplete="on"
-          disabled={mode === "NEW" ? false : true}
-        />
-        {/* PASSWORD */}
-        <input
-          className="form__input"
-          type="password"
-          name="password"
-          placeholder="Password..."
+          name="description"
+          placeholder="Descripción..."
           value={values.password}
           onChange={handleChange}
           required
           autoComplete="on"
           disabled={mode === "NEW" ? false : true}
         />
-        {/* DIRECTION */}
-        <input
-          className="form__input"
-          type="text"
-          name="direction"
-          placeholder="Dirección..."
-          value={values.direction}
-          onChange={handleChange}
-          autoComplete="on"
-          disabled={mode === "EDIT" || mode === "NEW" ? false : true}
-        />
-        {/* AVAILABLE */}
-        <div className="form__checkbox">
-          <label htmlFor="available">Acceso</label>
-          <input
-            type="checkbox"
-            name="available"
-            checked={values.available}
-            onChange={handleChange}
-            disabled={mode === "EDIT" || mode === "NEW" ? false : true}
-          />
-        </div>
-
-        <div className="form__doble"></div>
         {error && <p className="popup error">{msg}</p>}
         {success && <p className="popup success">{msg}</p>}
         {loading ? (

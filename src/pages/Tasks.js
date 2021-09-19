@@ -22,7 +22,7 @@ export default function Tasks() {
     editedTask,
     listTask,
     loadingList,
-    /* eliminatedTask, */
+    eliminatedTask,
     mode,
     setMode,
     postTask,
@@ -39,7 +39,7 @@ export default function Tasks() {
           tasks={tasks}
           loading={loadingList}
           setTaskChange={setTaskChange}
-          /* eliminatedTask={eliminatedTask} */
+          eliminatedTask={eliminatedTask}
         />
         <CreateNew setMode={setMode} />
         <FormTask

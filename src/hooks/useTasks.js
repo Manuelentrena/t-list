@@ -5,6 +5,7 @@ import getTaskList from "services/getTaskList";
 import getTaskByParam from "services/getTaskByParam";
 import postTaskService from "services/postTaskService";
 import putTaskService from "services/putTaskService";
+import deleteTaskService from "services/deleteTaskService";
 
 export default function useUsers() {
   /* Provider Security */
@@ -136,12 +137,39 @@ export default function useUsers() {
   );
 
   /* DELETE USER */
-  /*   const eliminatedUser = useCallback(
+  const eliminatedTask = useCallback(
     async ({ id }) => {
-      
+      setState({ loading: true, error: false, msg: "" });
+      const { status, result } = await deleteTaskService({ id, token });
+      if (status === "error") {
+        setState({
+          loading: false,
+          error: true,
+          msg: result.error_msg,
+          success: false,
+        });
+      } else {
+        setState({
+          loading: false,
+          error: false,
+          msg: "Borrado Correctamente!",
+          success: true,
+        });
+      }
+      /* Actualizamos los datos en la lista */
+      listTask();
+      /* Reseteamos el mensaje */
+      setTimeout(() => {
+        setState({
+          loading: false,
+          error: false,
+          msg: "",
+          success: false,
+        });
+      }, 3000);
     },
-    [token, listUser]
-  ); */
+    [token, listTask]
+  );
 
   useEffect(() => {
     async function callTaskList() {
@@ -164,7 +192,7 @@ export default function useUsers() {
     setTaskChange,
     postTask,
     editedTask,
-    /* eliminatedTask, */
+    eliminatedTask,
     mode,
     setMode,
   };

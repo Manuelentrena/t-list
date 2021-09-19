@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./styles.css";
 
 export default function UserItem({
   available,
@@ -30,15 +29,13 @@ export default function UserItem({
   };
 
   return (
-    <div className="userItem">
+    <div className="Item">
       {msg && <p className="popup error">{msg}</p>}
-      <p className="userItem__field nombre">{name}</p>
-      <p className="userItem__field apellido">{lastname}</p>
-      <p className="userItem__field email">{email}</p>
-      <p className="userItem__field direccion">{direction}</p>
-      <p className="userItem__field permiso">
-        {available === "1" ? "SI" : "NO"}
-      </p>
+      <p className="Item__field nombre">{name}</p>
+      <p className="Item__field apellido">{lastname}</p>
+      <p className="Item__field email">{email}</p>
+      <p className="Item__field direccion">{direction}</p>
+      <p className="Item__field permiso">{available === "1" ? "SI" : "NO"}</p>
       <button className="button__secun" onClick={handleEdit}>
         📋
       </button>

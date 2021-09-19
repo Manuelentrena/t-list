@@ -7,7 +7,7 @@ import {
   UserList,
   Filter,
   FormUser,
-  UserCreate,
+  CreateNew,
   Tab,
 } from "components";
 
@@ -45,7 +45,7 @@ export default function Users() {
           eliminatedUser={eliminatedUser}
           idUser={idUser}
         />
-        <UserCreate setMode={setMode} />
+        <CreateNew setMode={setMode} />
         <FormUser
           userChange={userChange}
           error={error}

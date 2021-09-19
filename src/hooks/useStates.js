@@ -1,68 +1,49 @@
 import { useState, useCallback, useContext, useEffect } from "react";
 import SecurityProvider from "providers/SecurityProvider";
-import UserProvider from "providers/UserProvider";
-import getUserByParam from "services/getUserByParam";
-import getUserList from "services/getUserList";
-import putUser from "services/putUser";
-import deleteUser from "services/deleteUser";
-import registerService from "services/register";
+import StateProvider from "providers/StateProvider";
+import getStateList from "services/getStateList";
+import postStateService from "services/postStateService";
+import putStateService from "services/putStateService";
+import deleteStateService from "services/deleteStateService";
 
 export default function useUsers() {
-  /* Provider User */
+  /* Provider State */
   const { token, idUser } = useContext(SecurityProvider);
-  const { users, setUsers, userChange, setUserChange, mode, setMode } =
-    useContext(UserProvider);
-  /* Estado del useUser */
+  const { states, setStates, stateChange, setStateChange, mode, setMode } =
+    useContext(StateProvider);
+  /* Estado del useState*/
   const [state, setState] = useState({
     loading: false,
     error: false,
     success: false,
     msg: "",
   });
-  /* Estado del useUserList */
+  /* Estado del useStateList */
   const [stateList, setStateList] = useState({
     loading: false,
     error: false,
   });
 
-  /* GetlistUser */
-  const listUser = useCallback(async () => {
+  /* GetlistStates */
+  const listStates = useCallback(async () => {
     setStateList({ loading: true, error: false });
-    const data = await getUserList({ token });
+    const data = await getStateList({ token });
     if (!data) {
       setStateList({ loading: false, error: true });
     } else {
       setStateList({ loading: false, error: false });
-      setUsers(data);
+      setStates(data);
     }
-  }, [token, setUsers]);
+  }, [token, setStates]);
 
-  /* GetUserBy */
-  const listUserBy = useCallback(
-    async ({ value, searchBy }) => {
-      setStateList({ loading: true, error: false });
-      const data = await getUserByParam({ token, value, searchBy });
-      if (!data) {
-        setStateList({ loading: false, error: true });
-      } else {
-        setStateList({ loading: false, error: false });
-        setUsers(data);
-      }
-    },
-    [token, setUsers]
-  );
-
-  /* POST USER */
-  const postUser = useCallback(
-    async ({ name, lastname, email, password, direction, available }) => {
+  /* POST State */
+  const postState = useCallback(
+    async ({ name, description }) => {
       setState({ loading: true, error: false, msg: "" });
-      const { status, result } = await registerService({
+      const { status, result } = await postStateService({
         name,
-        lastname,
-        email,
-        password,
-        direction,
-        available,
+        description,
+        token,
       });
       if (status === "error") {
         setState({
@@ -80,7 +61,7 @@ export default function useUsers() {
         });
       }
       /* Actualizamos los datos en la lista */
-      listUser();
+      listStates();
       /* Reseteamos el mensaje */
       setTimeout(() => {
         setState({
@@ -91,19 +72,17 @@ export default function useUsers() {
         });
       }, 3000);
     },
-    [listUser]
+    [token, listStates]
   );
 
-  /* PUT USER */
-  const editedUser = useCallback(
-    async ({ id, name, lastname, direction, available }) => {
+  /* PUT State */
+  const editedState = useCallback(
+    async ({ name, description, id }) => {
       setState({ loading: true, error: false, msg: "" });
-      const { status, result } = await putUser({
+      const { status, result } = await putStateService({
         id,
         name,
-        lastname,
-        direction,
-        available,
+        description,
         token,
       });
       if (status === "error") {
@@ -122,7 +101,7 @@ export default function useUsers() {
         });
       }
       /* Actualizamos los datos en la lista */
-      listUser();
+      listStates();
       /* Reseteamos el mensaje */
       setTimeout(() => {
         setState({
@@ -133,14 +112,14 @@ export default function useUsers() {
         });
       }, 3000);
     },
-    [token, listUser]
+    [token, listStates]
   );
 
-  /* DELETE USER */
-  const eliminatedUser = useCallback(
+  /* DELETE State */
+  const eliminatedState = useCallback(
     async ({ id }) => {
       setState({ loading: true, error: false, msg: "" });
-      const { status, result } = await deleteUser({ id, token });
+      const { status, result } = await deleteStateService({ id, token });
       if (status === "error") {
         setState({
           loading: false,
@@ -157,7 +136,7 @@ export default function useUsers() {
         });
       }
       /* Actualizamos los datos en la lista */
-      listUser();
+      listStates();
       /* Reseteamos el mensaje */
       setTimeout(() => {
         setState({
@@ -168,15 +147,15 @@ export default function useUsers() {
         });
       }, 3000);
     },
-    [token, listUser]
+    [token, listStates]
   );
 
   useEffect(() => {
-    async function callUserList() {
-      listUser();
+    async function callStateList() {
+      listStates();
     }
-    token && callUserList();
-  }, [token, listUser]);
+    token && callStateList();
+  }, [token, listStates]);
 
   return {
     loading: state.loading /* Si esta cargando */,
@@ -186,14 +165,13 @@ export default function useUsers() {
     loadingList: stateList.loading,
     errorList: stateList.error,
     idUser,
-    listUser,
-    listUserBy,
-    users,
-    userChange,
-    setUserChange,
-    postUser,
-    editedUser,
-    eliminatedUser,
+    listStates,
+    states,
+    stateChange,
+    setStateChange,
+    postState,
+    editedState,
+    eliminatedState,
     mode,
     setMode,
   };

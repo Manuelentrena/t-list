@@ -1,5 +1,5 @@
-export default function getStateList({ token }) {
-  return fetch(`https://api-rest-php-sql.herokuapp.com/states`, {
+export default function getTaskList({ token }) {
+  return fetch("https://api-rest-php-sql.herokuapp.com/tasks", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

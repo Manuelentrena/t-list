@@ -136,7 +136,10 @@ code {
   --email: 250px;
   --direccion: 350px;
   --permiso: 70px;
-  --descripcion: 500px;
+  --descripcion: 400px;
+  --usuario: 130px;
+  --estado: 130px;
+  --fecha: 100px;
 }
 
 .nombre {
@@ -159,12 +162,24 @@ code {
   min-width: var(--permiso);
   max-width: var(--permiso);
 }
+.usuario {
+  min-width: var(--usuario);
+  max-width: var(--usuario);
+}
+.estado {
+  min-width: var(--estado);
+  max-width: var(--estado);
+}
 .descripcion {
   min-width: var(--descripcion);
   max-width: var(--descripcion);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+.fecha {
+  min-width: var(--fecha);
+  max-width: var(--fecha);
 }
 
 /* Botones */

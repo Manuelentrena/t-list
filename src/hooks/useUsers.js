@@ -9,7 +9,7 @@ import registerService from "services/register";
 
 export default function useUsers() {
   /* Provider User */
-  const { token } = useContext(SecurityProvider);
+  const { token, idUser } = useContext(SecurityProvider);
   const { users, setUsers, userChange, setUserChange, mode, setMode } =
     useContext(UserProvider);
   /* Estado del useUser */
@@ -186,6 +186,7 @@ export default function useUsers() {
     success: state.success,
     loadingList: stateList.loading,
     errorList: stateList.error,
+    idUser,
     listUser,
     listUserBy,
     users,

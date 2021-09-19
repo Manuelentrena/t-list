@@ -8,6 +8,7 @@ import {
   Filter,
   FormUser,
   UserCreate,
+  Tab,
 } from "components";
 
 export default function Users() {
@@ -27,6 +28,7 @@ export default function Users() {
     mode,
     setMode,
     postUser,
+    idUser,
   } = useUsers();
 
   return (
@@ -34,12 +36,14 @@ export default function Users() {
       <div className="container">
         <Header />
         <NavBar setUserChange={setUserChange} />
+        <Tab />
         <Filter listUserBy={listUserBy} />
         <UserList
           users={users}
           loading={loadingList}
           setUserChange={setUserChange}
           eliminatedUser={eliminatedUser}
+          idUser={idUser}
         />
         <UserCreate setMode={setMode} />
         <FormUser

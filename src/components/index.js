@@ -10,3 +10,4 @@ export { default as UserItem } from "components/UserItem/UserItem";
 export { default as Filter } from "components/Filter/Filter";
 export { default as FormUser } from "components/FormUser/FormUser";
 export { default as UserCreate } from "components/UserCreate/UserCreate";
+export { default as Tab } from "components/Tab/Tab";

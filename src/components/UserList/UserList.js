@@ -6,6 +6,7 @@ export default function UserList({
   loading,
   setUserChange,
   eliminatedUser,
+  idUser,
 }) {
   return (
     <div className="list">
@@ -27,6 +28,7 @@ export default function UserList({
               key={user.id}
               setUserChange={setUserChange}
               eliminatedUser={eliminatedUser}
+              idUser={idUser}
             />
           ))
         )}

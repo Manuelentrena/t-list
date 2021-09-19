@@ -120,12 +120,13 @@ code {
 
 /* Campos concretos de las tablas */
 :root {
-  --nombre: 80px;
-  --apellido: 85px;
+  --nombre: 100px;
+  --apellido: 150px;
   --email: 250px;
   --direccion: 350px;
   --permiso: 70px;
 }
+
 .nombre {
   min-width: var(--nombre);
   max-width: var(--nombre);
@@ -176,7 +177,7 @@ code {
 /* filtros */
 
 .filter {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 /* POPUP MENSAJE */

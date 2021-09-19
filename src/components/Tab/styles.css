@@ -1,0 +1,11 @@
+.tab {
+  margin-right: auto;
+  margin-left: 5vw;
+  border-bottom: 1px solid black;
+  width: 90%;
+  overflow: hidden;
+}
+
+.tab__title {
+  margin: 1rem 0;
+}

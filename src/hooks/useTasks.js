@@ -3,32 +3,33 @@ import SecurityProvider from "providers/SecurityProvider";
 /* import UserProvider from "providers/UserProvider"; */
 import TaskProvider from "providers/TaskProvider";
 /* import StateProvider from "providers/StateProvider"; */
-import getStateList from "services/getStateList";
+import getTaskList from "services/getTaskList";
+import getTaskByParam from "services/getTaskByParam";
 
 export default function useUsers() {
-  /* Provider User */
-  const { token, idUser } = useContext(SecurityProvider);
+  /* Provider Security */
+  const { token } = useContext(SecurityProvider);
   /* const { users } = useContext(UserProvider);
   const { states } = useContext(StateProvider); */
   const { tasks, setTasks, taskChange, setTaskChange, mode, setMode } =
     useContext(TaskProvider);
-  /* Estado del useUser */
+  /* Estado del useTask */
   /*   const [state, setState] = useState({
     loading: false,
     error: false,
     success: false,
     msg: "",
   }); */
-  /* Estado del useUserList */
+  /* Estado del useTaskList */
   const [stateList, setStateList] = useState({
     loading: false,
     error: false,
   });
 
-  /* GetlistUser */
+  /* GetlistTAsk */
   const listTask = useCallback(async () => {
     setStateList({ loading: true, error: false });
-    const data = await getStateList({ token });
+    const data = await getTaskList({ token });
     if (!data) {
       setStateList({ loading: false, error: true });
     } else {
@@ -37,20 +38,20 @@ export default function useUsers() {
     }
   }, [token, setTasks]);
 
-  /* GetUserBy */
-  /* const listUserBy = useCallback(
+  /* GetTaskBy */
+  const listTaskBy = useCallback(
     async ({ value, searchBy }) => {
       setStateList({ loading: true, error: false });
-      const data = await getUserByParam({ token, value, searchBy });
+      const data = await getTaskByParam({ token, value, searchBy });
       if (!data) {
         setStateList({ loading: false, error: true });
       } else {
         setStateList({ loading: false, error: false });
-        setUsers(data);
+        setTasks(data);
       }
     },
-    [token, setUsers]
-  ); */
+    [token, setTasks]
+  );
 
   /* POST USER */
   /*   const postTask = useCallback(
@@ -89,15 +90,14 @@ export default function useUsers() {
     success: state.success, */
     loadingList: stateList.loading,
     errorList: stateList.error,
-    idUser,
     listTask,
-    /* listUserBy, */
+    listTaskBy,
     tasks,
     taskChange,
     setTaskChange,
-    /* postUser,
-    editedUser,
-    eliminatedUser, */
+    /* postTask,
+    editedTask,
+    eliminatedTask, */
     mode,
     setMode,
   };

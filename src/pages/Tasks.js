@@ -11,7 +11,7 @@ import {
 } from "components";
 export default function Tasks() {
   const {
-    /* listTaskBy, */
+    listTaskBy,
     setTaskChange,
     /* taskChange, */
     /* loading,
@@ -33,7 +33,7 @@ export default function Tasks() {
         <Header />
         <NavBar setTaskChange={setTaskChange} />
         <Tab />
-        <Filter /* listTaskBy={listTaskBy}  */ />
+        <Filter listTaskBy={listTaskBy} />
         <TaskList
           tasks={tasks}
           loading={loadingList}

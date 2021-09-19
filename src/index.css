@@ -137,38 +137,59 @@ code {
   --direccion: 350px;
   --permiso: 70px;
   --descripcion: 400px;
-  --usuario: 130px;
+  --usuario: 175px;
   --estado: 130px;
-  --fecha: 100px;
+  --fecha: 160px;
 }
 
 .nombre {
   min-width: var(--nombre);
   max-width: var(--nombre);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .apellido {
   min-width: var(--apellido);
   max-width: var(--apellido);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .email {
   min-width: var(--email);
   max-width: var(--email);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .direccion {
   min-width: var(--direccion);
   max-width: var(--direccion);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .permiso {
   min-width: var(--permiso);
   max-width: var(--permiso);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .usuario {
   min-width: var(--usuario);
   max-width: var(--usuario);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .estado {
   min-width: var(--estado);
   max-width: var(--estado);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .descripcion {
   min-width: var(--descripcion);
@@ -180,6 +201,9 @@ code {
 .fecha {
   min-width: var(--fecha);
   max-width: var(--fecha);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 /* Botones */

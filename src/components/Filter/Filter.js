@@ -15,7 +15,7 @@ var valuesFilter = {
   ],
 };
 
-export default function Filter({ listUserBy }) {
+export default function Filter({ listUserBy, listTaskBy }) {
   const { pathname } = useLocation();
 
   const [values, setValues] = useState({
@@ -29,7 +29,10 @@ export default function Filter({ listUserBy }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    listUserBy({ value: values.search, searchBy: values.type });
+    pathname === "/" &&
+      listUserBy({ value: values.search, searchBy: values.type });
+    pathname === "/tasks" &&
+      listTaskBy({ value: values.search, searchBy: values.type });
   };
 
   return (
